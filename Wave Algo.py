@@ -24,10 +24,11 @@ class Process:
             self.silent_neighbour_check()
 
     def activate(self):
+        print(str(self.pid)+" activated")
         self.activated = True
         self.silent_neighbour_check()
         for i in self.waiting_signals:
-            signal_received(i)
+            self.signal_received(i)
         self.waiting_signals = []
 
     def silent_neighbour_check(self):
@@ -63,6 +64,7 @@ deciders = []
 decision = False
 
 while decision == False:
+    print("\nTime: "+str(t))
     for i in processes:
         if i.activation_time == t:
             i.activate()
@@ -75,4 +77,4 @@ while decision == False:
     stack = new_stack
     new_stack = []
     t += 1
-print("Diffusion can begin with "+str(deciders[0])+" & "+str(deciders[1])+" (the two deciders)")
+print("Diffusion can begin with "+str(deciders[0])+" & "+str(deciders[1])+" (the two deciders) at time "+str(t))
